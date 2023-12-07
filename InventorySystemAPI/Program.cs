@@ -22,3 +22,11 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+//TODO
+
+// setup and add database
+// create abstractions for repo and services
+// Setup item object and create repo and service 
