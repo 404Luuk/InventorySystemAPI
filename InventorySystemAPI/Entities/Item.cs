@@ -1,14 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using InventorySystemAPI.Enums;
 
 namespace InventorySystemAPI.Entities;
-
-public enum Availability
-{
-    AVAILABLE,
-    UNAVAILABLE,
-    BROKEN,
-    MISSING
-}
 
 public class Item
 {
