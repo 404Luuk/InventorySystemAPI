@@ -5,6 +5,7 @@ namespace InventorySystemAPI.DataTransferObjects.ItemDTOs;
 
 public class ItemForCreationDto
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
     [Required(ErrorMessage = "Name is required")]
     public string? ItemName { get; set; }
     [Required(ErrorMessage = "Item must have availability status")]

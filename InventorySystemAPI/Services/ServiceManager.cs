@@ -1,3 +1,5 @@
+using AutoMapper;
+using InventorySystemAPI.Repositories.IRepositories;
 using InventorySystemAPI.Services.IServices;
 
 namespace InventorySystemAPI.Services;
@@ -6,9 +8,9 @@ public class ServiceManager : IServiceManager
 {
     private readonly Lazy<IItemService> _itemService;
     
-    public ServiceManager(IItemService itemService)
+    public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
     {
-        _itemService = new Lazy<IItemService>(() => new ItemService()); // Add repomanager to params
+        _itemService = new Lazy<IItemService>(() => new ItemService(repositoryManager, mapper)); // Add repomanager to params
     }
     
     public IItemService ItemService => _itemService.Value;
