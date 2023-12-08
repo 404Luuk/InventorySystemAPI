@@ -1,11 +1,19 @@
+using System.Reflection;
 using InventorySystemAPI.Entities;
+using InventorySystemAPI.Persistence.IPersistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventorySystemAPI.Persistence;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+    }
+
+    public ApplicationDbContext()
+    {
+    }
 
     public override async 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -14,8 +22,13 @@ public class ApplicationDbContext : DbContext
     }
     
     public DbSet<Item> Items { get; set; }
-    
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
 
 //todo add migrations package 

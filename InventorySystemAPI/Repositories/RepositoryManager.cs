@@ -2,7 +2,7 @@ using InventorySystemAPI.Repositories.IRepositories;
 
 namespace InventorySystemAPI.Repositories;
 
-public class RepositoryManager
+public class RepositoryManager: IRepositoryManager
 {
     private readonly Lazy<IItemRepository> _itemRepository;
     
@@ -12,4 +12,8 @@ public class RepositoryManager
     }
     
     public IItemRepository ItemRepository => _itemRepository.Value;
+    public Task SaveAsync()
+    {
+        throw new NotImplementedException();
+    }
 }
