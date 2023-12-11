@@ -1,33 +1,35 @@
 using System.Linq.Expressions;
+using InventorySystemAPI.Persistence;
+using InventorySystemAPI.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace InventorySystemAPI.Repositories.IRepositories;
+namespace InventorySystemAPI.Repositories;
 
 public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
 {
-    
-    
-    public IQueryable<T> FindAll(bool trackChanges)
+    private ApplicationDbContext? ApplicationDbContext { get; set; }
+
+    protected RepositoryBase(ApplicationDbContext applicationDbContext)
     {
-        throw new NotImplementedException();
+        ApplicationDbContext = applicationDbContext;
     }
+
+    public IQueryable<T> FindAll(bool trackChanges)
+    => !trackChanges
+        ? ApplicationDbContext!.Set<T>().AsNoTracking()
+        : ApplicationDbContext!.Set<T>();
 
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
-    {
-        throw new NotImplementedException();
-    }
+    => !trackChanges
+        ? ApplicationDbContext!.Set<T>().Where(expression).AsNoTracking()
+        : ApplicationDbContext!.Set<T>().Where(expression);
 
     public void Create(T entity)
-    {
-        throw new NotImplementedException();
-    }
+    => ApplicationDbContext!.Set<T>().Add(entity);
 
     public void Update(T entity)
-    {
-        throw new NotImplementedException();
-    }
+    => ApplicationDbContext!.Set<T>().Update(entity);
 
     public void Delete(T entity)
-    {
-        throw new NotImplementedException();
-    }
+    => ApplicationDbContext!.Set<T>().Remove(entity);
 }

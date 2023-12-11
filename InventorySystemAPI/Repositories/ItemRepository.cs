@@ -1,4 +1,5 @@
 using InventorySystemAPI.Entities;
+using InventorySystemAPI.Persistence;
 using InventorySystemAPI.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,10 @@ namespace InventorySystemAPI.Repositories;
 
 public class ItemRepository : RepositoryBase<Item>, IItemRepository
 {
+    public ItemRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
+    {
+    }
+    
     public void CreateItem(Item item)
     { 
         Create(item);
@@ -30,4 +35,6 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
         
         return Task.FromResult(items.AsEnumerable());
     }
+
+
 }
