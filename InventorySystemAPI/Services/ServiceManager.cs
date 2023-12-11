@@ -10,7 +10,7 @@ public class ServiceManager : IServiceManager
     
     public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
     {
-        _itemService = new Lazy<IItemService>(() => new ItemService(repositoryManager, mapper)); // Add repomanager to params
+        _itemService = new Lazy<IItemService>(() => new ItemService(repositoryManager, mapper));
     }
     
     public IItemService ItemService => _itemService.Value;

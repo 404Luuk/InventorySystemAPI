@@ -8,7 +8,7 @@ public interface IItemService
     Task<ItemDto> GetItemAsync(Guid id);
     Task<IEnumerable<ItemDto>> GetItemsAsync();
     Task<ItemDto> CreateItemAsync(ItemForCreationDto item);
-    Task<Item> UpdateItemAsync(Item item); // change to ItemForUpdateDto when implemented
+    Task<Item> UpdateItemAsync(ItemDto item); // change to ItemForUpdateDto when implemented
     Task DeleteItemAsync(Guid id);
     
 }

@@ -1,3 +1,4 @@
+using InventorySystemAPI.DataTransferObjects.ItemDTOs;
 using InventorySystemAPI.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,5 +28,42 @@ public class ItemController : ControllerBase
     {
         var item = await _service.ItemService.GetItemAsync(id);
         return Ok(item);
+    }
+    
+    [HttpPost]
+    [Route("api/items")]
+    public async Task<IActionResult> CreateItem([FromBody] ItemForCreationDto item)
+    {
+        var itemToReturn = await _service.ItemService.CreateItemAsync(item);
+        return CreatedAtRoute("GetItemById", new { id = itemToReturn.Id }, itemToReturn);
+    }
+    
+    
+    // [HttpPut]
+    // [Route("api/items/{id}")]
+    // public async Task<IActionResult> UpdateItem(Guid id, [FromBody] ItemForUpdateDto item)
+    // {
+    //     var itemToUpdate = await _service.ItemService.GetItemAsync(id);
+    //     if (itemToUpdate == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //     
+    //     await _service.ItemService.UpdateItemAsync(itemToUpdate);
+    //     return NoContent();
+    // }
+    
+    [HttpDelete]
+    [Route("api/items/{id}")]
+    public async Task<IActionResult> DeleteItem(Guid id)
+    {
+        var item = await _service.ItemService.GetItemAsync(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        
+        await _service.ItemService.DeleteItemAsync(id);
+        return NoContent();
     }
 }

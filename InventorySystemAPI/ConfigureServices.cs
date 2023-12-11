@@ -1,3 +1,4 @@
+using InventorySystemAPI.Mapping;
 using InventorySystemAPI.Persistence;
 using InventorySystemAPI.Persistence.IPersistence;
 using InventorySystemAPI.Repositories;
@@ -24,6 +25,7 @@ public static class ConfigureServices
         if (string.IsNullOrEmpty(connectionString))
         {
             Console.WriteLine(connectionString);
+            throw new Exception("Connection string is null or empty.");
         }
 
         await using var dataSource = dataSourceBuilder.Build();
@@ -42,6 +44,8 @@ public static class ConfigureServices
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<IItemService, ItemService>();
         
+        services.AddAutoMapper(typeof(MappingProfile));
+
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();

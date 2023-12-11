@@ -43,7 +43,7 @@ public class ItemService : IItemService
         return itemToReturn;
     }
 
-    public Task<Item> UpdateItemAsync(Item item)
+    public Task<Item> UpdateItemAsync(ItemDto item)
     {
         throw new NotImplementedException();
     }
