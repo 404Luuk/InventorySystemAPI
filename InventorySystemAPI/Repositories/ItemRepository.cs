@@ -26,7 +26,7 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
         Delete(item);
     }
 
-    public async Task<Item> GetItemAsync(Guid itemId, bool trackChanges = false)
+    public async Task<Item> GetItemAsync(int itemId, bool trackChanges = false)
     => await FindByCondition(o => o.Id.Equals(itemId), trackChanges).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
 
     public Task<IEnumerable<Item>> GetItemsAsync()

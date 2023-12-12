@@ -44,7 +44,7 @@ namespace InventorySystemAPI.Persistence.Migration
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 #pragma warning restore 612, 618
         }

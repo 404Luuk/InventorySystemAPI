@@ -17,7 +17,7 @@ public class ItemService : IItemService
         _mapper = mapper;
     }
     
-    public async Task<ItemDto> GetItemAsync(Guid id)
+    public async Task<ItemDto> GetItemAsync(int id)
     {
         var item = await _repository.ItemRepository.GetItemAsync(id, false);
 
@@ -48,7 +48,7 @@ public class ItemService : IItemService
         throw new NotImplementedException();
     }
 
-    public Task DeleteItemAsync(Guid id)
+    public Task DeleteItemAsync(int id)
     {
         throw new NotImplementedException();
     }

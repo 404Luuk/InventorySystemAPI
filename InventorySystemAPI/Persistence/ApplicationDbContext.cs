@@ -11,12 +11,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
     }
 
-    public ApplicationDbContext()
-    {
-    }
-
-    public override async 
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return await base.SaveChangesAsync(cancellationToken);
     }
@@ -26,6 +21,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        modelBuilder.Entity<Item>().Property(item => item.Id).ValueGeneratedOnAdd();
 
         base.OnModelCreating(modelBuilder);
     }

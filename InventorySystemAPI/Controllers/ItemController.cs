@@ -24,7 +24,7 @@ public class ItemController : ControllerBase
     
     [HttpGet]
     [Route("api/items/{id}")]
-    public async Task<IActionResult> GetItemById(Guid id)
+    public async Task<IActionResult> GetItemById(int id)
     {
         var item = await _service.ItemService.GetItemAsync(id);
         return Ok(item);
@@ -35,7 +35,7 @@ public class ItemController : ControllerBase
     public async Task<IActionResult> CreateItem([FromBody] ItemForCreationDto item)
     {
         var itemToReturn = await _service.ItemService.CreateItemAsync(item);
-        return CreatedAtRoute("GetItemById", new { id = itemToReturn.Id }, itemToReturn);
+        return Ok(itemToReturn);
     }
     
     
@@ -55,7 +55,7 @@ public class ItemController : ControllerBase
     
     [HttpDelete]
     [Route("api/items/{id}")]
-    public async Task<IActionResult> DeleteItem(Guid id)
+    public async Task<IActionResult> DeleteItem(int id)
     {
         var item = await _service.ItemService.GetItemAsync(id);
         if (item == null)

@@ -4,17 +4,19 @@ using InventorySystemAPI.Repositories.IRepositories;
 namespace InventorySystemAPI.Repositories;
 
 public class RepositoryManager: IRepositoryManager
-{
+{ 
     private readonly Lazy<IItemRepository> _itemRepository;
+    private readonly ApplicationDbContext? _repositoryContext;
     
-    public RepositoryManager(ApplicationDbContext applicationDbContext)
+    public RepositoryManager(ApplicationDbContext repositoryContext)
     {
-        _itemRepository = new Lazy<IItemRepository>(() => new ItemRepository(applicationDbContext)); // Add dbcontext to params
+        _repositoryContext = repositoryContext;
+        _itemRepository = new Lazy<IItemRepository>(() => new ItemRepository(repositoryContext)); // Add dbcontext to params
     }
     
     public IItemRepository ItemRepository => _itemRepository.Value;
-    public Task SaveAsync()
+    public async Task SaveAsync()
     {
-        throw new NotImplementedException();
+        await _repositoryContext!.SaveChangesAsync();
     }
 }
