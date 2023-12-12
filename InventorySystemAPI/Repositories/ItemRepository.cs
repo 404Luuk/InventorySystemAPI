@@ -1,32 +1,40 @@
 using InventorySystemAPI.Entities;
+using InventorySystemAPI.Persistence;
 using InventorySystemAPI.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventorySystemAPI.Repositories;
 
-public class ItemRepository : IItemRepository
+public class ItemRepository : RepositoryBase<Item>, IItemRepository
 {
-    public void CreateItem(Item item)
+    public ItemRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
     {
-        throw new NotImplementedException();
+    }
+    
+    public void CreateItem(Item item)
+    { 
+        Create(item);
     }
 
     public void UpdateItem(Item item)
     {
-        throw new NotImplementedException();
+        Update(item);
     }
 
     public void DeleteItem(Item item)
     {
-        throw new NotImplementedException();
+        Delete(item);
     }
 
-    public Task<Item> GetItemAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Item> GetItemAsync(int itemId, bool trackChanges = false)
+    => await FindByCondition(o => o.Id.Equals(itemId), trackChanges).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
 
     public Task<IEnumerable<Item>> GetItemsAsync()
     {
-        throw new NotImplementedException();
+        var items = FindAll(trackChanges: false);
+        
+        return Task.FromResult(items.AsEnumerable());
     }
+
+
 }

@@ -1,14 +1,29 @@
+using AutoMapper;
 using InventorySystemAPI.DataTransferObjects.ItemDTOs;
 using InventorySystemAPI.Entities;
+using InventorySystemAPI.Repositories.IRepositories;
 using InventorySystemAPI.Services.IServices;
 
 namespace InventorySystemAPI.Services;
 
 public class ItemService : IItemService
 {
-    public Task<ItemDto> GetItemAsync(int id)
+    private readonly IRepositoryManager _repository;
+    private readonly IMapper _mapper;
+    
+    public ItemService(IRepositoryManager repository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _repository = repository;
+        _mapper = mapper;
+    }
+    
+    public async Task<ItemDto> GetItemAsync(int id)
+    {
+        var item = await _repository.ItemRepository.GetItemAsync(id, false);
+
+        var itemToReturn = _mapper.Map<ItemDto>(item);
+
+        return itemToReturn;
     }
 
     public Task<IEnumerable<ItemDto>> GetItemsAsync()
@@ -16,12 +31,19 @@ public class ItemService : IItemService
         throw new NotImplementedException();
     }
 
-    public Task<ItemDto> CreateItemAsync(ItemForCreationDto item)
+    public async Task<ItemDto> CreateItemAsync(ItemForCreationDto item)
     {
-        throw new NotImplementedException();
+        var itemEntity = _mapper.Map<Item>(item);
+        
+        _repository.ItemRepository.CreateItem(itemEntity);
+        await _repository.SaveAsync();
+        
+        var itemToReturn = _mapper.Map<ItemDto>(itemEntity);
+        
+        return itemToReturn;
     }
 
-    public Task<Item> UpdateItemAsync(Item item)
+    public Task<Item> UpdateItemAsync(ItemDto item)
     {
         throw new NotImplementedException();
     }
