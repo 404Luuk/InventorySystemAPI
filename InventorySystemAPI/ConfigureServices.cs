@@ -14,8 +14,6 @@ namespace InventorySystemAPI;
 public static class ConfigureServices
 {
     private static readonly IConfiguration Configuration;
-    
-    // make async when adding db
     public static async Task<IServiceCollection> AddInventorySystemApi(this IServiceCollection services)
     {
         var dataSourceBuilder = 
