@@ -10,5 +10,6 @@ public class ItemForCreationDto
     [Required(ErrorMessage = "Item must have availability status")]
     public Availability? Availability { get; set; }
     public string? ItemOwner { get; set; }
+    public string? ItemCurrentHolder { get; set; }
 
 }
