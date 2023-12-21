@@ -26,9 +26,12 @@ public class ItemService : IItemService
         return itemToReturn;
     }
 
-    public Task<IEnumerable<ItemDto>> GetItemsAsync()
+    public async Task<IEnumerable<ItemDto>> GetItemsAsync()
     {
-        throw new NotImplementedException();
+        var items = await _repository.ItemRepository.GetItemsAsync();
+        var itemsToReturn = _mapper.Map<IEnumerable<ItemDto>>(items);
+
+        return itemsToReturn;
     }
 
     public async Task<ItemDto> CreateItemAsync(ItemForCreationDto item)
@@ -49,7 +52,7 @@ public class ItemService : IItemService
     }
 
     public Task DeleteItemAsync(int id)
-    {
+    {   
         throw new NotImplementedException();
     }
 }

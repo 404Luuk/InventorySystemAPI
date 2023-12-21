@@ -35,6 +35,17 @@ public static class ConfigureServices
                     builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
                 }));
 
+        // problematic for production !!!
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
+
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         
         services.AddScoped<IServiceManager, ServiceManager>();
