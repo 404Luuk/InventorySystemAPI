@@ -31,6 +31,7 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
     {
         return await FindByCondition(o => o.Id.Equals(itemId), trackChanges)
             .Include<Item, Status>(item => item.Status)
+            .Include<Item, ItemGroup>(item => item.ItemGroup)
             .FirstOrDefaultAsync() ?? throw new InvalidOperationException();
     }
 
@@ -38,6 +39,7 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
     {
         return await FindAll(trackChanges: false)
             .Include<Item, Status>(item => item.Status)
+            .Include<Item, ItemGroup>(item => item.ItemGroup)
             .ToListAsync();
     }
 }

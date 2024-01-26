@@ -5,6 +5,7 @@ namespace InventorySystemAPI.Entities;
 public class Item
 {
     public Status Status { get; set; }
+    public ItemGroup ItemGroup { get; set; }
     
     [Key]
     public int Id { get; set; }
@@ -16,4 +17,5 @@ public class Item
     
     // Foreign key properties
     public int StatusId { get; set; }
+    public int ItemGroupId { get; set; }
 }

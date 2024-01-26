@@ -14,4 +14,5 @@ public class ItemForCreationDto
     // Foreign key properties
     [Required(ErrorMessage = "Status is required")]
     public int StatusId { get; set; }
+    public int? ItemGroupId { get; set; }
 }

@@ -12,4 +12,5 @@ public class ItemDto
     
     // Foreign key properties
     public StatusDto? Status { get; set; }
+    public ItemGroupDto? ItemGroup { get; set; }
 }
