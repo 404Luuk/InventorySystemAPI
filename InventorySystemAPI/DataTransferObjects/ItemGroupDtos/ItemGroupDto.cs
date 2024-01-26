@@ -1,3 +1,5 @@
+using InventorySystemAPI.DataTransferObjects.CategoryDtos;
+
 namespace InventorySystemAPI.DataTransferObjects.ItemGroupDtos;
 
 public class ItemGroupDto

@@ -16,21 +16,15 @@ public class RepositoryManager: IRepositoryManager
         _repositoryContext = repositoryContext;
         _itemRepository = new Lazy<IItemRepository>(() => new ItemRepository(repositoryContext)); // Add dbcontext to params
         _statusRepository = new Lazy<IStatusRepository>(() => new StatusRepository(repositoryContext)); // Add dbcontext to params
-    }
-    
-    public IItemRepository ItemRepository => _itemRepository.Value;
-    public IStatusRepository StatusRepository => _statusRepository.Value;
         _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(repositoryContext)); // Add dbcontext to params
-    }
-    
-    public IItemRepository ItemRepository => _itemRepository.Value;
-    public ICategoryRepository CategoryRepository => _categoryRepository.Value;
-
         _itemGroupRepository = new Lazy<IItemGroupRepository>(() => new ItemGroupRepository(repositoryContext)); // Add dbcontext to params
     }
     
     public IItemRepository ItemRepository => _itemRepository.Value;
+    public IStatusRepository StatusRepository => _statusRepository.Value;
+    public ICategoryRepository CategoryRepository => _categoryRepository.Value;
     public IItemGroupRepository ItemGroupRepository => _itemGroupRepository.Value;
+    
     public async Task SaveAsync()
     {
         await _repositoryContext!.SaveChangesAsync();

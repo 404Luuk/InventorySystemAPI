@@ -1,3 +1,4 @@
+using InventorySystemAPI.DataTransferObjects.ItemGroupDtos;
 using InventorySystemAPI.DataTransferObjects.StatusDtos;
 
 namespace InventorySystemAPI.DataTransferObjects.ItemDTOs;
