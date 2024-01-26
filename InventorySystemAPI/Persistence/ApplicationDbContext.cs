@@ -17,12 +17,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
     
     public DbSet<Item> Items { get; set; }
+    public DbSet<Status> Statuses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
         modelBuilder.Entity<Item>().Property(item => item.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<Status>().Property(status => status.Id).ValueGeneratedOnAdd();
 
         base.OnModelCreating(modelBuilder);
     }

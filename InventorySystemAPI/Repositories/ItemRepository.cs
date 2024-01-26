@@ -27,14 +27,18 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
     }
 
     public async Task<Item> GetItemAsync(int itemId, bool trackChanges = false)
-    => await FindByCondition(o => o.Id.Equals(itemId), trackChanges).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
-
-    public Task<IEnumerable<Item>> GetItemsAsync()
     {
-        var items = FindAll(trackChanges: false);
-        
-        return Task.FromResult(items.AsEnumerable());
+        return await FindByCondition(o => o.Id.Equals(itemId), trackChanges)
+            .Include<Item, Status>(item => item.Status)
+            .FirstOrDefaultAsync() ?? throw new InvalidOperationException();
     }
 
-
+    public async Task<IEnumerable<Item>> GetItemsAsync(bool trackChanges = false)
+    {
+        var items = await FindAll(trackChanges: false)
+            .Include<Item, Status>(item => item.Status)
+            .ToListAsync();
+        
+        return items;
+    }
 }
