@@ -6,6 +6,7 @@ namespace InventorySystemAPI.Repositories;
 public class RepositoryManager: IRepositoryManager
 { 
     private readonly Lazy<IItemRepository> _itemRepository;
+    private readonly Lazy<ICategoryRepository> _categoryRepository;
     private readonly Lazy<IItemGroupRepository> _itemGroupRepository;
     private readonly ApplicationDbContext? _repositoryContext;
     
@@ -13,6 +14,12 @@ public class RepositoryManager: IRepositoryManager
     {
         _repositoryContext = repositoryContext;
         _itemRepository = new Lazy<IItemRepository>(() => new ItemRepository(repositoryContext)); // Add dbcontext to params
+        _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(repositoryContext)); // Add dbcontext to params
+    }
+    
+    public IItemRepository ItemRepository => _itemRepository.Value;
+    public ICategoryRepository CategoryRepository => _categoryRepository.Value;
+
         _itemGroupRepository = new Lazy<IItemGroupRepository>(() => new ItemGroupRepository(repositoryContext)); // Add dbcontext to params
     }
     

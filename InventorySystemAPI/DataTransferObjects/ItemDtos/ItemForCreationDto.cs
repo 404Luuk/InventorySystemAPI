@@ -7,9 +7,9 @@ public class ItemForCreationDto
 {
     [Required(ErrorMessage = "Name is required")]
     public string? ItemName { get; set; }
-    [Required(ErrorMessage = "Item must have availability status")]
+    [Required(ErrorMessage = "Availability status is required")]
     public Availability? Availability { get; set; }
-    public string? ItemOwner { get; set; }
-    public string? ItemCurrentHolder { get; set; }
+    public string? ItemNotes { get; set; }
+    public string? ItemImage { get; set; }
 
 }

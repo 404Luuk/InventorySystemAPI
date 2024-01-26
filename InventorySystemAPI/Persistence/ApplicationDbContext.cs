@@ -17,6 +17,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
     
     public DbSet<Item> Items { get; set; }
+    public DbSet<Category> Categories { get; set; }
     public DbSet<ItemGroup> ItemGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,8 +25,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
         modelBuilder.Entity<Item>().Property(item => item.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<Category>().Property(category => category.Id).ValueGeneratedOnAdd();
         modelBuilder.Entity<ItemGroup>().Property(itemGroup => itemGroup.Id).ValueGeneratedOnAdd();
-        
 
         base.OnModelCreating(modelBuilder);
     }
