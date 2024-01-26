@@ -4,6 +4,8 @@ namespace InventorySystemAPI.Entities;
 
 public class Item
 {
+    public Status Status { get; set; }
+    
     [Key]
     public int Id { get; set; }
     [MaxLength(30, ErrorMessage = "Maximum length may not exceed 30 chars")]

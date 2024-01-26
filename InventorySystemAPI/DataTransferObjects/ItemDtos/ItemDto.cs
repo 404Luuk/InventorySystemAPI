@@ -11,5 +11,5 @@ public class ItemDto
     public string? ItemImage { get; set; }
     
     // Foreign key properties
-    public StatusDto Status { get; set; }
+    public StatusDto? Status { get; set; }
 }

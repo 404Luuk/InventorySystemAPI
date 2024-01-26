@@ -2,6 +2,7 @@ using InventorySystemAPI.Entities;
 using InventorySystemAPI.Persistence;
 using InventorySystemAPI.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace InventorySystemAPI.Repositories;
 
@@ -10,9 +11,9 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
     public ItemRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
     {
     }
-    
+
     public void CreateItem(Item item)
-    { 
+    {
         Create(item);
     }
 
@@ -33,12 +34,10 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
             .FirstOrDefaultAsync() ?? throw new InvalidOperationException();
     }
 
-    public async Task<IEnumerable<Item>> GetItemsAsync(bool trackChanges = false)
+    public async Task<IEnumerable<Item>> GetItemsAsync()
     {
-        var items = await FindAll(trackChanges: false)
+        return await FindAll(trackChanges: false)
             .Include<Item, Status>(item => item.Status)
             .ToListAsync();
-        
-        return items;
     }
 }
