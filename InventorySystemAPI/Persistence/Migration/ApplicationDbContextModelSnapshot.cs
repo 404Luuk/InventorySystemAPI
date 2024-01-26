@@ -29,22 +29,54 @@ namespace InventorySystemAPI.Persistence.Migration
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ItemAvailability")
-                        .HasColumnType("integer");
+                    b.Property<bool>("ItemAvailability")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("ItemCurrentHolder")
+                    b.Property<string>("ItemImage")
                         .HasColumnType("text");
 
                     b.Property<string>("ItemName")
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<string>("ItemOwner")
+                    b.Property<string>("ItemNotes")
+                        .HasColumnType("text");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("InventorySystemAPI.Entities.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("StatusName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("InventorySystemAPI.Entities.Item", b =>
+                {
+                    b.HasOne("InventorySystemAPI.Entities.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Status");
                 });
 #pragma warning restore 612, 618
         }
