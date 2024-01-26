@@ -4,4 +4,5 @@ public interface IServiceManager
 {
     IItemService ItemService { get; }
     ICategoryService CategoryService { get; }
+    IItemGroupService ItemGroupService { get; }
 }

@@ -7,6 +7,7 @@ public class RepositoryManager: IRepositoryManager
 { 
     private readonly Lazy<IItemRepository> _itemRepository;
     private readonly Lazy<ICategoryRepository> _categoryRepository;
+    private readonly Lazy<IItemGroupRepository> _itemGroupRepository;
     private readonly ApplicationDbContext? _repositoryContext;
     
     public RepositoryManager(ApplicationDbContext repositoryContext)
@@ -19,6 +20,11 @@ public class RepositoryManager: IRepositoryManager
     public IItemRepository ItemRepository => _itemRepository.Value;
     public ICategoryRepository CategoryRepository => _categoryRepository.Value;
 
+        _itemGroupRepository = new Lazy<IItemGroupRepository>(() => new ItemGroupRepository(repositoryContext)); // Add dbcontext to params
+    }
+    
+    public IItemRepository ItemRepository => _itemRepository.Value;
+    public IItemGroupRepository ItemGroupRepository => _itemGroupRepository.Value;
     public async Task SaveAsync()
     {
         await _repositoryContext!.SaveChangesAsync();
