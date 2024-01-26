@@ -8,6 +8,8 @@ public class ServiceManager : IServiceManager
 {
     private readonly Lazy<IItemService> _itemService;
     private readonly Lazy<IStatusService> _statusService;
+    private readonly Lazy<ICategoryService> _categoryService;
+    private readonly Lazy<IItemGroupService> _itemGroupService;
     
     public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
     {
@@ -17,4 +19,14 @@ public class ServiceManager : IServiceManager
     
     public IItemService ItemService => _itemService.Value;
     public IStatusService StatusService => _statusService.Value;
+        _categoryService = new Lazy<ICategoryService>(() => new CategoryService(repositoryManager, mapper));
+    }
+    
+    public IItemService ItemService => _itemService.Value;
+    public ICategoryService CategoryService => _categoryService.Value;
+        _itemGroupService = new Lazy<IItemGroupService>(() => new ItemGroupService(repositoryManager, mapper));
+    }
+    
+    public IItemService ItemService => _itemService.Value;
+    public IItemGroupService ItemGroupService => _itemGroupService.Value;
 }
