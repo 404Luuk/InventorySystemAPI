@@ -15,18 +15,12 @@ public class ServiceManager : IServiceManager
     {
         _itemService = new Lazy<IItemService>(() => new ItemService(repositoryManager, mapper));
         _statusService = new Lazy<IStatusService>(() => new StatusService(repositoryManager, mapper));
-    }
-    
-    public IItemService ItemService => _itemService.Value;
-    public IStatusService StatusService => _statusService.Value;
         _categoryService = new Lazy<ICategoryService>(() => new CategoryService(repositoryManager, mapper));
-    }
-    
-    public IItemService ItemService => _itemService.Value;
-    public ICategoryService CategoryService => _categoryService.Value;
         _itemGroupService = new Lazy<IItemGroupService>(() => new ItemGroupService(repositoryManager, mapper));
     }
     
     public IItemService ItemService => _itemService.Value;
+    public IStatusService StatusService => _statusService.Value;
+    public ICategoryService CategoryService => _categoryService.Value;
     public IItemGroupService ItemGroupService => _itemGroupService.Value;
 }
